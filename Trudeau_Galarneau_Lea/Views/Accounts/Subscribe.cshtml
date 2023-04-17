@@ -1,0 +1,32 @@
+﻿@model MDB.Models.User
+
+@{
+    ViewBag.Title = "Subcribe";
+}
+
+@{ Html.RenderPartial("UserForm"); }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script defer>
+        $.validator.addMethod(
+            "GenderId",
+            function (value, element) { return ($("input[name='GenderId']:checked").val() != undefined); },
+            "Choix obligatoire"
+        );
+
+        $("#toggleShowPassword").hide();
+        $("#toggleShowPassword").click(() => {
+            $("#Password").attr("type", $("#Password").attr("type") == 'password' ? 'text' : 'password');
+            $("#ConfirmPassword").attr("type", $("#ConfirmPassword").attr("type") == 'password' ? 'text' : 'password');
+            $("#toggleShowPassword").toggleClass("fa-eye");
+            $("#toggleShowPassword").toggleClass("fa-eye-slash");
+        });
+        $("#Password").keyup(() => {
+            if ($("#Password").val() == "")
+                $("#toggleShowPassword").hide();
+            else
+                $("#toggleShowPassword").show();
+        })
+    </script>
+}
